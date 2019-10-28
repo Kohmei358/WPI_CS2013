@@ -30,23 +30,168 @@ public class WordSearchTester {
 		// TODO: implement me
 	}
 
-        @Test
-        /**
-         *  Verifies that search works correctly in a tiny grid that is effectively 2D.
-         */
-        public void testSearchSimple () {
-                // Note: this grid is 1x2x2 in size
-                final char[][][] grid = new char[][][] { { { 'a', 'b', 'c' },
-                                                           { 'd', 'f', 'e' } } };
-                final int[][] location = _wordSearch.search(grid, "be");
-                assertNotNull(location);
-                assertEquals(location[0][0], 0);
-                assertEquals(location[0][1], 0);
-                assertEquals(location[0][2], 1);
-                assertEquals(location[1][0], 0);
-                assertEquals(location[1][1], 1);
-                assertEquals(location[1][2], 2);
-        }
+	@Test
+	/**
+	 *  Verifies that search works correctly in a tiny grid that is effectively 2D.
+	 */
+	public void testSearchSimple () {
+		// Note: this grid is 1x2x2 in size
+		final char[][][] grid = new char[][][] { { { 'a', 'b', 'c' },
+				{ 'd', 'f', 'e' } } };
+		final int[][] location = _wordSearch.search(grid, "be");
+		assertNotNull(location);
+		assertEquals(location[0][0], 0);
+		assertEquals(location[0][1], 0);
+		assertEquals(location[0][2], 1);
+		assertEquals(location[1][0], 0);
+		assertEquals(location[1][1], 1);
+		assertEquals(location[1][2], 2);
+	}
+
+	@Test
+	/**
+	 *  Verifies that search works correctly in a tiny grid that is effectively 2D.
+	 */
+	public void testSearchSimpleEdgeCase () {
+		// Note: this grid is 1x2x2 in size
+		final char[][][] grid = new char[][][] { { { 'a', 'b', 'c' },
+				{ 'd', 'f', 'e' } } };
+		final int[][] location = _wordSearch.search(grid,null);
+		assertNull(location);
+
+		final int[][] location2 = _wordSearch.search(grid,"");
+		assertArrayEquals(location2,new int[0][0]);
+	}
+
+	@Test
+	/**
+	 *  Verifies that search works correctly in a tiny grid that is effectively 2D.
+	 */
+	public void testSearchMutiAnswers () {
+		final char[][][] grid = new char[][][]         {
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+		};
+		final int[][] location = _wordSearch.search(grid, "a");
+		assertNotNull(location);
+		assertEquals(location[0][0], 0);
+		assertEquals(location[0][1], 0);
+		assertEquals(location[0][2], 0);
+	}
+
+	@Test
+	/**
+	 * Comment
+	 */
+	public void testSearchNoAnswer () {
+		final char[][][] grid = new char[][][]         {
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+				{
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'},
+						{'a', 'a', 'a'}
+				},
+		};
+		final int[][] location = _wordSearch.search(grid, "b");
+		assertNull(location);
+	}
+
+	@Test
+	/**
+	 * Comment
+	 */
+	public void testSearchLong1D () {
+		final char[][][] grid = new char[][][] {{{'n','u','t','u','r','i','t','i','o','n','a','l',}}};
+		final int[][] location = _wordSearch.search(grid, "nuturitional");
+		assertNotNull(location);
+		assertEquals(location[0][0], 0);
+		assertEquals(location[0][1], 0);
+		assertEquals(location[0][2], 0);
+
+		assertEquals(location[3][0], 0);
+		assertEquals(location[3][1], 0);
+		assertEquals(location[3][2], 3);
+
+		assertEquals(location[6][0], 0);
+		assertEquals(location[6][1], 0);
+		assertEquals(location[6][2], 6);
+
+		assertEquals(location[11][0], 0);
+		assertEquals(location[11][1], 0);
+		assertEquals(location[11][2], 11);
+
+	}
+
+
+	@Test
+	/**
+	 * Comment
+	 */
+	public void testSearchOneCell () {
+		final char[][][] grid = new char[][][] {{{'z'}}};
+		final int[][] location = _wordSearch.search(grid, "z");
+		assertNotNull(location);
+		assertEquals(location[0][0], 0);
+		assertEquals(location[0][1], 0);
+		assertEquals(location[0][2], 0);
+	}
+
+	@Test
+	/**
+	 *  Verifies that search works correctly in a tiny grid that is effectively 2D.
+	 */
+	public void testSearchSimple3D () {
+		final char[][][] grid = new char[][][]         {
+															{
+																	{'w', 'a', 'a'},
+																	{'a', 'a', 'a'},
+																	{'a', 'a', 'a'}
+															},
+															{
+																	{'a', 'a', 'a'},
+																	{'a', 'p', 'a'},
+																	{'a', 'a', 'a'}
+															},
+															{
+																	{'a', 'a', 'a'},
+																	{'a', 'a', 'a'},
+																	{'a', 'a', 'i'}
+															},
+														};
+		final int[][] location = _wordSearch.search(grid, "wpi");
+		assertNotNull(location);
+		assertEquals(location[0][0], 0);
+		assertEquals(location[0][1], 0);
+		assertEquals(location[0][2], 0);
+		assertEquals(location[1][0], 1);
+		assertEquals(location[1][1], 1);
+		assertEquals(location[1][2], 1);
+		assertEquals(location[2][0], 2);
+		assertEquals(location[2][1], 2);
+		assertEquals(location[2][2], 2);
+	}
 
 	@Test
 	/**
